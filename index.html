@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Carte sonore</title>
+
+<style>
+html, body {
+  margin: 0;
+  height: 100%;
+  background: black;
+  overflow: hidden;
+}
+
+/* écran d’entrée */
+#startScreen {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 50;
+}
+
+/* vidéo */
+#videoContainer {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: none;
+  background: black;
+  z-index: 10;
+}
+
+iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* bouton */
+#enterBtn {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 12px 20px;
+  font-size: 18px;
+  display: none;
+  z-index: 100;
+}
+
+/* carte */
+#map {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 2s ease;
+  z-index: 1;
+}
+
+#map iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+</style>
+</head>
+
+<body>
+
+<div id="startScreen">Entrer dans l’écoute</div>
+
+<div id="videoContainer">
+  <iframe 
+    src="https://player.vimeo.com/video/1182708337?autoplay=1"
+    allow="autoplay; fullscreen">
+  </iframe>
+
+  <button id="enterBtn">Entrer dans la carte</button>
+</div>
+
+<div id="map">
+  <iframe 
+    src="https://umap.openstreetmap.fr/fr/map/entendre-le-feu-ecouter-le-rione-etre-sur-le-seuil_1375817">
+  </iframe>
+</div>
+
+<script>
+let start = document.getElementById("startScreen");
+let videoContainer = document.getElementById("videoContainer");
+let enterBtn = document.getElementById("enterBtn");
+let map = document.getElementById("map");
+
+start.onclick = function() {
+  start.style.display = "none";
+  videoContainer.style.display = "block";
+};
+
+/* apparition bouton après 15 sec (à adapter si besoin) */
+setTimeout(() => {
+  enterBtn.style.display = "block";
+}, 15000);
+
+enterBtn.onclick = function() {
+  videoContainer.style.opacity = "0";
+
+  setTimeout(() => {
+    videoContainer.style.display = "none";
+    map.style.opacity = "1";
+  }, 1000);
+};
+</script>
+
+</body>
+</html>
